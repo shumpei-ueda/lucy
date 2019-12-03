@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PjLucy</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-analytics.js"></script>
+
+
+  </head>
+
+  <body>
+  <header>
+    <div class="header-logo">
+      <% if @current_user %>
+        <img class="logo" src="http://4.bp.blogspot.com/-Yws_DdLsXuM/TnH62L9OSrI/AAAAAAAACEI/2OuuEKzwRog/s1600/succerball.png" >
+        <%= link_to("サカスト", "/") %>
+      <% else %>
+        <img class="logo" src="http://4.bp.blogspot.com/-Yws_DdLsXuM/TnH62L9OSrI/AAAAAAAACEI/2OuuEKzwRog/s1600/succerball.png" >
+        <%= link_to("サカスト", "/") %>
+      <% end %>
+    </div>
+    <ul class="header-menus">
+      <% if @current_user %>
+        <li>
+          <%= link_to(@current_user.name, "/users/#{@current_user.id}") %>
+        </li>
+        <li>
+          <%= link_to("投稿一覧", "/posts/index") %>
+        </li>
+        <li>
+          <%= link_to("新規投稿", "/posts/new") %>
+        </li>
+        <li>
+          <%= link_to("ユーザー一覧", "/users/index") %>
+        </li>
+        <li>
+          <%= link_to("ログアウト", "/logout", {method: :post}) %>
+        </li>
+      <% else %>
+        <li>
+          <%= link_to("新規登録", "/signup") %>
+        </li>
+        <li>
+          <%= link_to("ログイン", "/login") %>
+        </li>
+      <% end %>
+    </ul>
+  </header>
+
+  <% if flash[:notice] %>
+    <div class="flash">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+       https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-analytics.js"></script>
+
+
+  <%= yield %>
+
+  </body>
+</html>
